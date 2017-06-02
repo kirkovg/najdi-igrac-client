@@ -1,0 +1,38 @@
+<h1>Welcome to WP starter angular app</h1>
+
+<!--<form ng-submit="vm.searchEvents()" name="form">
+  <input type="text" ng-model="vm.queryString" class="form-control"/>
+
+
+</form>-->
+
+<button class="btn btn-primary" ng-click="vm.searchEvents()">
+  Search <i class="fa fa-search"></i>
+</button>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <table ng-show="vm.entities.length>0" class="table table-bordered table-striped">
+      <tr>
+        <th>Event Name</th>
+        <th>Event Time</th>
+        <th>Event Location</th>
+        <th>Event Sport</th>
+        <th>Event description</th>
+      </tr>
+      <tr ng-repeat="e in vm.entities">
+        <td>{{e.name}}</td>
+        <td>{{e.dateTime}}</td>
+        <td>{{e.location.name}}</td>
+        <td>{{e.sport}}</td>
+        <td>{{e.description}}</td>
+      </tr>
+    </table>
+
+    <div class="panel panel-warning text-warning" ng-hide="vm.entities.length>0">
+      There are no events!
+    </div>
+  </div>
+</div>
+
