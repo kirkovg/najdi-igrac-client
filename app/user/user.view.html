@@ -1,0 +1,8 @@
+
+<p ng-show="!loginCtrl.isLoggedIn()" ng-controller="LoginController as loginCtrl">
+  Not logged in to see this content
+</p>
+<ul ng-show="loginCtrl.isLoggedIn()"  ng-controller="LoginController as loginCtrl">
+  <li ng-repeat="e in vm.entities"> {{e.userName}}</li>
+</ul>
+

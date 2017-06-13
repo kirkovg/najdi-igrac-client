@@ -15,6 +15,7 @@ var JS_APP = [
   'app/group/**.js',
   'app/location/**.js',
   'app/default-page/**.js',
+  'app/user/**.js',
   'app/directives/showcase-directive/showcase-directive.directive.js',
   'app/directives/wp-combo/wp-combo.directive.js',
   'app/login/**.js'
@@ -24,7 +25,8 @@ var TEMPLATES_SRC = [
   'app/group/group.view.html',
   'app/location/**.html',
   'app/login/**.html',
-  'app/default-page/**.html'
+  'app/default-page/**.html',
+  'app/user/**.html'
 ];
 
 var CSS_APP = [
@@ -50,7 +52,8 @@ var JS_LIB = [
   'bower_components/momentjs/moment.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
   'bower_components/angular-ui-select/dist/select.js',
-  'bower_components/angular-resource/angular-resource.js'
+  'bower_components/angular-resource/angular-resource.js',
+  'bower_components/angular-cookies/angular-cookies.js'
 ];
 
 

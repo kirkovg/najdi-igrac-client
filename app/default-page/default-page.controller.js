@@ -10,12 +10,12 @@
   /* @ngInject */
   function SearchController($log, SearchService) {
     var vm = this;
-    var queryString = 'Prv';
+    vm.queryString = "";
     vm.entities = [];
     vm.searchEvents = searchEvents;
 
     function searchEvents() {
-      SearchService.searchEvents(queryString).then(function (data) {
+      SearchService.searchEvents(vm.queryString).then(function (data) {
         vm.entities = data;
       });
     }

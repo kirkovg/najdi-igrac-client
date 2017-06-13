@@ -15,35 +15,20 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginController as vm">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginController as loginCtrl">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#/first">
-            First Page
+          <a href="#/user">
+            User
           </a>
         </li>
-        <li>
-          <a href="#/second">
-            Second Page
-          </a>
-        </li>
-        <li>
-          <a href="#/groups">
-            Lab Groups
-          </a>
-        </li>
-        <li>
-          <a href="#/user-profile">
-            User profile
-          </a>
-        </li>
-        <li>
+        <li ng-show="!loginCtrl.isLoggedIn()">
           <a href="#/login">
             Login
           </a>
         </li>
-        <li ng-show="authenticated">
-          <a href="" ng-click="vm.logout()">
+        <li ng-show="loginCtrl.isLoggedIn()">
+          <a href="" ng-click="loginCtrl.logout()">
             Logout
           </a>
         </li>
