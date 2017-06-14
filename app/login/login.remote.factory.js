@@ -25,8 +25,6 @@
         }
       ).then(function (response) {
         $log.debug("login succesful");
-        $log.debug('JSESSIONID cookie = ' + response.headers('Set-Cookie'));
-        $log.debug('Date cookie = ' + response.headers('Date'));
         localStorage.setItem('session','localStorage -> loggedin + cookie = ' + $cookies.get('JSESSIONID'));
       }, function (response) {
         $log.debug("error logging in");
