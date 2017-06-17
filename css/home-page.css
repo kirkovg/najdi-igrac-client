@@ -1,0 +1,73 @@
+
+.navbar{
+  margin: 0;
+}
+.slikaLevo{
+  margin-top: 20vh;
+  margin-bottom: 20vh;
+  margin-left: 10%;
+  height: 45vh;
+  width: 35%;
+  float: left;
+}
+.formaDesno{
+  margin-top: 20vh;
+  margin-bottom: 20vh;
+  margin-left: 10%;
+  height: 45vh;
+  width: 35%;
+  float: left;
+}
+.input-group{
+  margin: 30px 0;
+}
+.kopce{
+  margin-left: 65%;
+}
+.golemo{
+  font-size: 220px;
+  color: gray;
+  text-align: center;
+}
+.crno{
+  color: black;
+}
+.gore {
+  box-shadow: 0px 5px 5px #888888;
+}
+.eventDate h3{
+  margin-top: 0px;
+}
+.eventDate h2{
+  margin-top: 0px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}
+.najdole{
+  height: 30vh;
+  background: #428bca;
+}
+.tekstSredina{
+  text-align: center;
+  margin: 10vh 0;
+
+}
+.tekstSredina small{
+  font-size: 15px;
+}
+.tekstDole{
+  z-index: 999;
+  text-align: center;
+  margin-top: 70px;
+}
+.tekstDole>a{
+  color: white;
+}
+.linkovi{
+  list-style: none;
+  margin-left: 42%;
+}
+.linkovi li{
+  float: left;
+  margin: 10px;
+}

@@ -23,7 +23,10 @@ var JS_APP = [
   'app/register/register.remote.factory.js',
   'app/edit-profile/edit-profile.controller.js',
   'app/edit-profile/edit-profile.state.js',
-  'app/edit-profile/edit-profile.remote.factory.js'
+  'app/edit-profile/edit-profile.remote.factory.js',
+  'app/event/event.controller.js',
+  'app/event/event.remote.factory.js',
+  'app/event/event.state.js'
 ];
 
 var TEMPLATES_SRC = [
@@ -31,11 +34,14 @@ var TEMPLATES_SRC = [
   'app/home-page/default-page.view.html',
   'app/user-profile/user-profile.view.html',
   'app/register/register/register.view.html',
-  'app/edit-profile/edit-profile.view.html'
+  'app/edit-profile/edit-profile.view.html',
+  'app/event/event.view.html'
 ];
 
 var CSS_APP = [
-  'css/main.css'
+  'css/main.css',
+  'css/event.css',
+  'css/home-page.css'
 ];
 
 var FONTS_LIB = [
@@ -48,7 +54,11 @@ var FONTS_LIB = [
 var CSS_LIB = [
   'bower_components/bootstrap/dist/css/bootstrap.css',
   'bower_components/components-font-awesome/css/font-awesome.min.css',
-  'bower_components/angular-ui-select/dist/select.css'
+  'bower_components/angular-ui-select/dist/select.css',
+  'bower_components/animate.css',
+  'bower_components/jquery-ui.theme.min.css',
+  'bower_components/stylecheck.css',
+  'bower_components/jquery-ui/**.css'
 ];
 
 

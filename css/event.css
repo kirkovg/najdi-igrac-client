@@ -1,0 +1,47 @@
+
+.navbar{
+  margin: 0;
+}
+.userInfo{
+  margin-left: 20px;
+  margin-top: 20px;
+  width: 15%;
+  position: fixed;
+}
+.userPic{
+  width: 100px;
+  height: 100px;
+}
+.eventsList{
+  margin-left: 18%;
+  margin-top: 20px;
+  width: 65%;
+}
+.sideMenu{
+  left: 84.5%;
+  top: 72px;
+  width: 14%;
+  position: fixed;
+}
+.lista{
+  list-style: none;
+  padding: 0;
+}
+.crta{
+  margin-bottom: 35px;
+}
+.eventPic, .eventPicFile{
+  width: 50px;
+  height: 50px;
+}
+.btn{
+  margin-left: 10px;
+}
+.eventDate h3{
+  margin-top: 0px;
+}
+.eventDate h2{
+  margin-top: 0px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}

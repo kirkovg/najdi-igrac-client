@@ -10,10 +10,10 @@
 
   function registerState($stateProvider) {
 
-    $stateProvider.state('homePage', {
-      url: '/',
-      templateUrl: 'app/home-page/home-page.view.html',
-      controller: 'HomeController',
+    $stateProvider.state('event', {
+      url: '/events',
+      templateUrl: 'app/event/event.view.html',
+      controller: 'EventController',
       controllerAs: 'vm'
     });
   }

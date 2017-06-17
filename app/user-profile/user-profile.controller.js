@@ -95,22 +95,22 @@
     }
 
 
-
-
     function checkFollowing() {
       if (LoginService.isLoggedIn()) {
         var currentUser = LoginService.getLoggedInUser();
         if (vm.userInfo.userName !== currentUser) {
           // means that the shown user-profile is not that of the logged in user i.e it's someone else's
           $log.debug(vm.userInfo.userName);
+          $log.debug(vm.userInfo.followers);
+
         } else {
           $log.debug(currentUser);
+          $log.debug(vm.userInfo.followers);
         }
+
+          //[1, 2, 3].includes(2); // true
       }
     }
-
-
-
 
 
     //private function
