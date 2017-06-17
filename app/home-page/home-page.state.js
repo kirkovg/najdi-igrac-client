@@ -6,14 +6,14 @@
     .config(registerState);
 
 
-  registerState.$inject = ['$stateProvider', '$httpProvider'];
+  registerState.$inject = ['$stateProvider'];
 
   function registerState($stateProvider) {
 
-    $stateProvider.state('user', {
-      url: '/user',
-      templateUrl: 'app/user/user.view.html',
-      controller: 'UserController',
+    $stateProvider.state('homePage', {
+      url: '/',
+      templateUrl: 'app/home-page/home-page.view.html',
+      controller: 'SearchController',
       controllerAs: 'vm'
     });
   }

@@ -10,10 +10,10 @@
 
   function registerState($stateProvider) {
 
-    $stateProvider.state('defaultPage', {
-      url: '/',
-      templateUrl: 'app/default-page/default-page.view.html',
-      controller: 'SearchController',
+    $stateProvider.state('userProfile', {
+      url: '/user-profile',
+      templateUrl: 'app/user-profile/user-profile.view.html',
+      controller: 'UserProfileController',
       controllerAs: 'vm'
     });
   }

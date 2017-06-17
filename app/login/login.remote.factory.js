@@ -5,13 +5,14 @@
     .module('najdi-igrac-client')
     .factory('LoginService', LoginServiceFn);
 
-  LoginServiceFn.$inject = ['$log', '$http', '$cookies'];
+  LoginServiceFn.$inject = ['$log', '$http'];
 
-  function LoginServiceFn($log, $http, $cookies) {
+  function LoginServiceFn($log, $http) {
     var service = {
       login: loginFn,
       logout: logoutFn,
-      isLoggedIn: isLoggedInFn
+      isLoggedIn: isLoggedInFn,
+      getLoggedInUser: getLoggedInUserFn
     };
 
     return service;
@@ -25,21 +26,28 @@
         }
       ).then(function (response) {
         $log.debug("login succesful");
-        localStorage.setItem('session','localStorage -> loggedin + cookie = ' + $cookies.get('JSESSIONID'));
+        sessionStorage.setItem('session',data.username);
       }, function (response) {
-        $log.debug("error logging in");
+          $log.debug("error logging in");
+          return Promise.reject();
       });
     }
 
     function logoutFn() {
       return $http.post("http://localhost:8080/logout").then(function () {
           $log.debug("logout succesful");
-          localStorage.removeItem('session');
+        sessionStorage.removeItem('session');
       });
     }
 
     function isLoggedInFn() {
-      return localStorage.getItem('session') !== null;
+      return sessionStorage.getItem('session') !== null;
+    }
+
+    function getLoggedInUserFn() {
+      if (isLoggedInFn()) {
+        return sessionStorage.getItem('session');
+      }
     }
   }
 

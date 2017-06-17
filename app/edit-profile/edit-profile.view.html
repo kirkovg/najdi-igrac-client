@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="well well-sm">
+        <form name="form" ng-submit="vm.updateUserDetails()">
+          <div class="row">
+            <div class="col-sm-4 col-md-4">
+              <img src="http://placehold.it/250x200" alt="" class="img-rounded img-responsive"/>
+              <br/>
+              <label>Change picture: </label>
+              <input type="file" class="btn btn-default"/>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <h3>{{vm.userInfo.userName}}</h3>
+              </div>
+              <div class="form-group">
+                <label>Email: </label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       ng-model="vm.userInfo.email"
+                       class="form-control" required/>
+              </div>
+              <div class="form-group">
+                <span ng-show="form.email.$dirty && form.email.$invalid" class="alert alert-danger">
+                  <span ng-show="form.email.$error.required">Email is required.</span>
+                  <span ng-show="form.email.$error.email">Invalid email address.</span>
+                </span>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Telephone: (0xx-xxx-xxx)</label>
+                <input type="text" pattern='0\d{2}[\-]\d{3}[\-]\d{3}'
+                       ng-model="vm.userInfo.telephone"
+                       id="telephone"
+                       name="telephone"
+                       class="form-control" required/>
+              </div>
+              <div class="form-group">
+                <span ng-show="form.telephone.$dirty && form.telephone.$invalid" class="alert alert-danger">
+                  Telephone must be in exact format
+                </span>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>About me: </label>
+                <textarea class="form-control"
+                          id="description"
+                          name="description"
+                          ng-model="vm.userInfo.description"
+                          ng-required="false">
+                    </textarea>
+              </div>
+              <br/>
+              <div class="form-group" ng-show="vm.successUpdate">
+                <span class="alert alert-success">Successfully updated.</span>
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-md-4">
+              <div class="pull-right" style="padding-top: 290px;">
+                <button class="btn btn-success" type="submit" ng-disabled="form.$invalid">
+                  Update details <i class="fa fa-send"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

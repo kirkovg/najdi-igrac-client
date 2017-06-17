@@ -9,24 +9,29 @@ var fs = require("fs");
 
 var JS_APP = [
   'app/app.js',
-  'app/c1/c1.state.js',
-  'app/c1/first.controller.js',
-  'app/c1/second.controller.js',
-  'app/group/**.js',
-  'app/location/**.js',
-  'app/default-page/**.js',
-  'app/user/**.js',
-  'app/directives/showcase-directive/showcase-directive.directive.js',
-  'app/directives/wp-combo/wp-combo.directive.js',
-  'app/login/**.js'
+  'app/home-page/home-page.state.js',
+  'app/home-page/home-page.remote.factory.js',
+  'app/home-page/home-page.controller.js',
+  'app/user-profile/user-profile.controller.js',
+  'app/user-profile/user-profile.state.js',
+  'app/user-profile/user-profile.remote.factory.js',
+  'app/login/login.controller.js',
+  'app/login/login.remote.factory.js',
+  'app/login/login.state.js',
+  'app/register/register.controller.js',
+  'app/register/register.state.js',
+  'app/register/register.remote.factory.js',
+  'app/edit-profile/edit-profile.controller.js',
+  'app/edit-profile/edit-profile.state.js',
+  'app/edit-profile/edit-profile.remote.factory.js'
 ];
 
 var TEMPLATES_SRC = [
-  'app/group/group.view.html',
-  'app/location/**.html',
-  'app/login/**.html',
-  'app/default-page/**.html',
-  'app/user/**.html'
+  'app/login/login.view.html',
+  'app/home-page/default-page.view.html',
+  'app/user-profile/user-profile.view.html',
+  'app/register/register/register.view.html',
+  'app/edit-profile/edit-profile.view.html'
 ];
 
 var CSS_APP = [
@@ -36,13 +41,15 @@ var CSS_APP = [
 var FONTS_LIB = [
   'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2',
   'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff',
-  'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf'
+  'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf',
+  'bower_components/bootstrap/fonts/*'
 ];
 
 var CSS_LIB = [
   'bower_components/bootstrap/dist/css/bootstrap.css',
   'bower_components/components-font-awesome/css/font-awesome.min.css',
-  'bower_components/angular-ui-select/dist/select.css'];
+  'bower_components/angular-ui-select/dist/select.css'
+];
 
 
 var JS_LIB = [
@@ -53,7 +60,9 @@ var JS_LIB = [
   'bower_components/angular-ui-router/release/angular-ui-router.js',
   'bower_components/angular-ui-select/dist/select.js',
   'bower_components/angular-resource/angular-resource.js',
-  'bower_components/angular-cookies/angular-cookies.js'
+  'bower_components/angular-cookies/angular-cookies.js',
+  'bower_components/d3/d3.js',
+  'bower_components/c3/c3.js'
 ];
 
 

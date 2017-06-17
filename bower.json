@@ -17,7 +17,9 @@
     "angular-translate": "~2.11.0",
     "ngstorage": "^0.3.10",
     "angular-ui-select": "^0.18.0",
-    "angular-cookies": "1.5.8"
+    "angular-cookies": "1.5.8",
+    "d3" : "~3.5.0",
+    "c3" : "~0.4.13"
   },
   "resolutions": {
     "angular": "1.5.8",

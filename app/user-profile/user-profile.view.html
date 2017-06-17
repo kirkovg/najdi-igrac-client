@@ -1,0 +1,157 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="well well-sm">
+        <div class="row">
+          <div class="col-sm-4 col-md-4">
+            <img src="http://placehold.it/250x200" alt="" class="img-rounded img-responsive"/>
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <h3>{{vm.userInfo.userName}}</h3>
+            <p>
+              <i class="glyphicon glyphicon-envelope"></i> &nbsp;{{vm.userInfo.email}}
+              <br/>
+              <i class="glyphicon glyphicon-phone"></i> &nbsp;{{vm.userInfo.telephone}}
+            </p>
+
+            <p ng-show="vm.userInfo.description">
+              <i class="glyphicon glyphicon-pencil"></i>
+              About me: {{vm.userInfo.description}}
+            </p>
+
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <h4 class="btn btn-primary active" aria-pressed="true">
+              <span>Followers</span>: <span class="badge">{{vm.userInfo.followers.length}}</span>
+            </h4>
+            <br/>
+            <h4 class="btn btn-primary active " aria-pressed="true">
+              <span>Following</span>: <span class="badge">{{vm.userInfo.following.length}}</span>
+            </h4>
+            <br/>
+            <h4 class="btn btn-warning active" aria-pressed="true">
+              <span>Events participated</span>: <span class="badge">{{vm.events.length}}</span>
+            </h4>
+            <br/>
+            <br/>
+            <br/>
+            <h3 class="btn btn-success" ng-click="vm.toggleDetails()">
+              Show Details <span class="glyphicon glyphicon-plus-sign"></span>
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="well well-sm" ng-show="vm.showDetailsAboutUser">
+        <div class="row">
+          <div class="col-sm-4 col-md-4">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i class="fa fa-user fa-fw"></i> Followers</h3>
+            </div>
+            <div class="panel-body">
+              <div class="list-group">
+                <a href="#/user-profile" class="list-group-item"
+                   ng-repeat="x in vm.userInfo.followers"
+                   ng-click="vm.getUserInfoForOtherUsers( x.userName )"
+                >
+                  <i class="fa fa-fw fa-user-secret"></i> {{x.userName}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i class="fa fa-user fa-fw"></i>Following</h3>
+            </div>
+            <div class="panel-body">
+              <div class="list-group">
+                <a href="#/user-profile" class="list-group-item"
+                   ng-repeat="x in vm.userInfo.following"
+                   ng-click="vm.getUserInfoForOtherUsers( x.userName )"
+                >
+                  <i class="fa fa-fw fa-user-secret"></i> {{x.userName}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i class="fa fa-calendar fa-fw"></i>Events participated</h3>
+            </div>
+            <div class="panel-body">
+              <div class="list-group">
+                <a class="list-group-item"
+                   ng-repeat="e in vm.events"
+                >
+                  <span class="badge"
+                        data-toggle="modal"
+                        data-target="#event-modal"
+                        ng-click="vm.getEventDetails( e.id )"
+                  >
+                    Details
+                  </span>
+                  <i class="fa fa-fw fa-clock-o"></i> {{e.name}}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="event-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-target="#/user-profile"><span
+          aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">{{vm.eventDetails.name}}
+          <small><span class="fa fa-clock-o"></span>
+            {{vm.eventDetails.dateTime.day}}
+            {{vm.eventDetails.dateTime.month}}
+            {{vm.eventDetails.dateTime.year}}
+            {{vm.eventDetails.dateTime.time}}
+          </small>
+        </h2>
+      </div>
+      <div class="modal-body">
+
+        <h4>{{vm.eventDetails.sport}}
+          <span class="fa fa-futbol-o" ng-show="vm.eventDetails.sport == 'FOOTBALL'"></span>
+          <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'BASKETBALL'"></span>
+          <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'VOLLEYBALL'"></span>
+        </h4>
+        <p>
+          <label>Location: </label>
+          {{vm.eventDetails.location.city}}
+          {{vm.eventDetails.location.name}}
+          {{vm.eventDetails.location.street}}
+          {{vm.eventDetails.location.streetNumber}}
+          <br/>
+          <label>Description: </label>&nbsp;<span>{{vm.eventDetails.description}}</span>
+        </p>
+
+
+        <div class="well">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user fa-fw"></i>Participants</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <a class="list-group-item"
+                 ng-repeat="x in vm.eventDetails.participants"
+              >
+                <i class="fa fa-fw fa-user-secret"></i> {{x.userName}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
