@@ -1,21 +1,32 @@
-<div class="alert alert-danger" ng-show="vm.errorMsg">
-  {{vm.errorMsg}}
-</div>
 
-<h2>{{vm.title}}</h2>
-<form name="form" ng-submit="vm.login()">
-  <div class="form-group">
-    <label for="username">Username:</label> <input type="text"
-                                                   class="form-control" id="username" name="username"
-                                                   ng-model="vm.credentials.username"/>
+<div class="container well" style="margin-top: 20px;">
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+
+      <div class="alert alert-danger" ng-show="vm.errorMsg">
+        {{vm.errorMsg}}
+      </div>
+
+      <h2>{{vm.title}}</h2>
+      <form name="form" ng-submit="vm.login()">
+        <div class="form-group">
+          <label for="username">Username:</label> <input type="text"
+                                                         class="form-control" id="username" name="username"
+                                                         ng-model="vm.credentials.username"/>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label> <input type="password"
+                                                         class="form-control" id="password" name="password"
+                                                         ng-model="vm.credentials.password"/>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Login <i class="fa fa-user"></i>
+        </button>
+      </form>
+
+
+    </div>
   </div>
-  <div class="form-group">
-    <label for="password">Password:</label> <input type="password"
-                                                   class="form-control" id="password" name="password"
-                                                   ng-model="vm.credentials.password"/>
-  </div>
-  <button type="submit" class="btn btn-primary">
-    Login <i class="fa fa-user"></i>
-  </button>
-</form>
+
+</div>
 

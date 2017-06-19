@@ -1,10 +1,24 @@
+<br/>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="well well-sm">
         <div class="row">
           <div class="col-sm-4 col-md-4">
-            <img src="http://placehold.it/250x200" alt="" class="img-rounded img-responsive"/>
+            <img ng-src="{{vm.pictureSrc}}" height="200" width="250" class="img-rounded"
+                 ng-show="vm.isAdmin || vm.isAnon "/>
+            <img data-ng-src="{{vm.pictureSrc}}"
+                 height="200" width="250" class="img-rounded img-responsive" ng-show="!vm.isAdmin && !vm.isAnon"/>
+
+            <br/>
+            <br/>
+            <button class="btn btn-default" ng-click="vm.followUser()" ng-show="!vm.isFollowing && !vm.isLoggedInUser">
+              <span> Follow <i class="fa fa-plus-circle"></i></span>
+            </button>
+            <br/>
+            <button class="btn btn-default" ng-click="vm.unFollowUser()" ng-show="vm.isFollowing && !vm.isLoggedInUser">
+              <span> Unfollow <i class="fa fa-minus-circle"></i></span>
+            </button>
           </div>
           <div class="col-sm-4 col-md-4">
             <h3>{{vm.userInfo.userName}}</h3>
@@ -81,7 +95,7 @@
             <div class="panel-body">
               <div class="list-group">
                 <a class="list-group-item"
-                   ng-repeat="e in vm.events"
+                   ng-repeat="e in vm.events track by $index"
                 >
                   <span class="badge"
                         data-toggle="modal"
@@ -117,13 +131,14 @@
         </h2>
       </div>
       <div class="modal-body">
-
         <h4>{{vm.eventDetails.sport}}
           <span class="fa fa-futbol-o" ng-show="vm.eventDetails.sport == 'FOOTBALL'"></span>
           <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'BASKETBALL'"></span>
           <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'VOLLEYBALL'"></span>
+          <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'TENNIS'"></span>
         </h4>
         <p>
+          <label>Admin: {{vm.eventDetails.admin.userName}}</label> <br/>
           <label>Location: </label>
           {{vm.eventDetails.location.city}}
           {{vm.eventDetails.location.name}}

@@ -1,83 +1,94 @@
-<div class="alert alert-danger" ng-show="vm.errorMsg">
-  {{vm.errorMsg}}
-</div>
 
-<div class="alert alert-success" ng-show="vm.successMsg">
-  {{vm.successMsg}}
-</div>
 
-<div ng-hide="vm.registered">
-  <h2>{{vm.title}}</h2>
-  <form name="form" ng-submit="vm.registerUser()">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="form-group">
-          <label for="username">Username:</label> <input type="text"
-                                                         class="form-control" id="username" name="username"
-                                                         ng-model="vm.credentials.userName" required/>
-        </div>
+<div class="container well"  style="margin-top: 20px;">
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
 
-        <div class="form-group" ng-show="form.username.$dirty && form.username.$invalid">
+      <div class="alert alert-danger" ng-show="vm.errorMsg">
+        {{vm.errorMsg}}
+      </div>
+
+      <div class="alert alert-success" ng-show="vm.successMsg">
+        {{vm.successMsg}}
+      </div>
+
+      <div ng-hide="vm.registered">
+        <h2>{{vm.title}}</h2>
+        <form name="form" ng-submit="vm.registerUser()">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="username">Username:</label> <input type="text"
+                                                               class="form-control" id="username" name="username"
+                                                               ng-model="vm.credentials.userName" required/>
+              </div>
+
+              <div class="form-group" ng-show="form.username.$dirty && form.username.$invalid">
         <span class="alert alert-danger">
           <span ng-show="form.username.$error.required">Username is required.</span>
         </span>
 
-        </div>
-        <br/>
-        <div class="form-group">
-          <label for="password">Password:</label> <input type="password"
-                                                         class="form-control" id="password" name="password"
-                                                         ng-minlength="6"
-                                                         ng-model="vm.credentials.password" required/>
-        </div>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label for="password">Password:</label> <input type="password"
+                                                               class="form-control" id="password" name="password"
+                                                               ng-minlength="6"
+                                                               ng-model="vm.credentials.password" required/>
+              </div>
 
-        <div class="form-group">
+              <div class="form-group">
         <span ng-show="form.password.$dirty && form.password.$invalid" class="alert alert-danger">
           <span ng-show="form.password.$error.minlength">Password must contain at least 6 characters</span>
           <span ng-show="form.password.$error.required">Password is required.</span>
         </span>
-        </div>
-        <br/>
-        <div class="form-group">
-          <label for="password">Telephone: (0xx-xxx-xxx)</label> <input type="text" pattern='0\d{2}[\-]\d{3}[\-]\d{3}'
-                                                          class="form-control" id="telephone" name="telephone"
-                                                          ng-model="vm.credentials.telephone" required/>
-        </div>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label for="password">Telephone: (0xx-xxx-xxx)</label> <input type="text" pattern='0\d{2}[\-]\d{3}[\-]\d{3}'
+                                                                              class="form-control" id="telephone" name="telephone"
+                                                                              ng-model="vm.credentials.telephone" required/>
+              </div>
 
-        <div class="form-group">
+              <div class="form-group">
         <span ng-show="form.telephone.$dirty && form.telephone.$invalid" class="alert alert-danger">
           Telephone must be in exact format
         </span>
-        </div>
-        <br/>
-        <div class="form-group">
-          <label for="password">Email:</label> <input type="email"
-                                                      class="form-control" id="email" name="email"
-                                                      ng-model="vm.credentials.email" required/>
-        </div>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label for="password">Email:</label> <input type="email"
+                                                            class="form-control" id="email" name="email"
+                                                            ng-model="vm.credentials.email" required/>
+              </div>
 
-        <div class="form-group">
+              <div class="form-group">
         <span ng-show="form.email.$dirty && form.email.$invalid" class="alert alert-danger">
           <span ng-show="form.email.$error.required">Email is required.</span>
           <span ng-show="form.email.$error.email">Invalid email address.</span>
         </span>
-        </div>
-        <br/>
-        <div class="form-group">
-          <label for="password">Description:</label>
-          <textarea class="form-control"
-                    id="description"
-                    name="description"
-                    ng-model="vm.credentials.description"
-                    ng-required="false">
+              </div>
+              <br/>
+              <div class="form-group">
+                <label for="password">Description:</label>
+                <textarea class="form-control"
+                          id="description"
+                          name="description"
+                          ng-model="vm.credentials.description"
+                          ng-required="false">
           </textarea>
-        </div>
+              </div>
 
-        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
-          Register <i class="fa fa-save"></i>
-        </button>
+              <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+                Register <i class="fa fa-save"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
+
     </div>
-  </form>
+  </div>
+
 </div>
 

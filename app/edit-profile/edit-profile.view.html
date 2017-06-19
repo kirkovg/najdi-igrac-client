@@ -1,3 +1,4 @@
+<br/>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -5,12 +6,16 @@
         <form name="form" ng-submit="vm.updateUserDetails()">
           <div class="row">
             <div class="col-sm-4 col-md-4">
-              <img src="http://placehold.it/250x200" alt="" class="img-rounded img-responsive"/>
+              <img ng-src="{{vm.pictureSrc}}" height="200" width="250" class="img-rounded"
+                   ng-show="vm.isAdmin || vm.isAnon "/>
+              <img data-ng-src="{{vm.pictureSrc}}"
+                   height="200" width="250" class="img-rounded img-responsive" ng-show="!vm.isAdmin && !vm.isAnon"/>
               <br/>
-              <label>Change picture: </label>
-              <input type="file" class="btn btn-default"/>
+              <label ng-show="!vm.isAdmin">Change picture: (.png)</label>
+              <input file-model="vm.selectedUploadFile" type="file" name="file" class="btn btn-default" ng-show="!vm.isAdmin"/>
+              <br/>
             </div>
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-5 col-md-5">
               <div class="form-group">
                 <h3>{{vm.userInfo.userName}}</h3>
               </div>
@@ -54,11 +59,11 @@
               </div>
               <br/>
               <div class="form-group" ng-show="vm.successUpdate">
-                <span class="alert alert-success">Successfully updated.</span>
+                <span class="alert alert-success">Successfully updated. Please refresh to see the changes.</span>
               </div>
             </div>
 
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-3 col-md-3">
               <div class="pull-right" style="padding-top: 290px;">
                 <button class="btn btn-success" type="submit" ng-disabled="form.$invalid">
                   Update details <i class="fa fa-send"></i>

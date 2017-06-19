@@ -6,7 +6,8 @@
       'ui.router',
       'ui.select',
       'ngResource',
-      'ngCookies'
+      'ngCookies',
+      'ngFileUpload'
     ])
 
     .config(function ($httpProvider) {

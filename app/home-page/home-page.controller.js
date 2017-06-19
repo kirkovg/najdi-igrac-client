@@ -16,8 +16,12 @@
     vm.upcomingEvents = [];
     vm.joinEvent = joinEvent;
     vm.isRequestSent = isRequestSent;
+    vm.cancelRequest = cancelRequest;
+    vm.isMyEvent=isMyEvent;
+    vm.getEventDetails=getEventDetails;
     vm.errorMsg = "";
     vm.alreadySentRequests = [];
+    vm.eventDetails = {};
     loadAlreadySentRequests();
     loadUpcomingEvents();
 
@@ -26,6 +30,13 @@
         vm.entities = data;
       });
     }
+    function cancelRequest(eventId) {
+      EventService.cancelRequest(eventId).then(function () {
+        $log.info(vm.alreadySentRequests);
+        var index = vm.alreadySentRequests.indexOf(eventId);
+        vm.alreadySentRequests.splice(index,1);
+        $log.info(vm.alreadySentRequests);
+      })}
     function loadUpcomingEvents() {
       EventService.loadUpcomingEvents(0).then(function(response){
           vm.upcomingEvents = response.data;
@@ -47,6 +58,9 @@
 
         })
     }
+    function getEventDetails(event) {
+      vm.eventDetails = event;
+    }
 
     function loadAlreadySentRequests(){
       $log.info("vlaga");
@@ -62,20 +76,23 @@
       }
     }
 
-    function joinEvent(event){
-      $log.info("click");
-      $log.info(event);
-      if(LoginService.isLoggedIn())
-      {
-        EventService.joinEvent(event);
+    function joinEvent(eventId) {
+      if (LoginService.isLoggedIn()) {
+        EventService.joinEvent(eventId).then(function () {
+          vm.alreadySentRequests.push(eventId);
+        });
       }
       else {
         $state.go("login");
       }
     }
 
+
     function isRequestSent(eventId){
       return vm.alreadySentRequests.includes(eventId);
+    }
+    function isMyEvent(event) {
+      return (LoginService.getLoggedInUser()===event.admin.userName);
     }
 
   }

@@ -11,21 +11,44 @@
     var service = {
       getUserDetails: getUserDetailsFn,
       updateUserDetails: updateUserDetailsFn,
-      getUserPicture: getUserPictureFn
+      uploadUserPicture: uploadUserPictureFn,
+      checkIfPictureExists: checkIfPictureExistsFn
     };
 
     return service;
 
     function getUserDetailsFn(username) {
-      return $http.get('/api/users/findByUserName?userName=' + username);
+      return $http
+        .get('/api/users/findByUserName?userName=' + username);
     }
 
     function updateUserDetailsFn(data) {
-      return $http.put('/api/users/'+data.id,data);
+      return $http.put('/api/users/' + data.id, data);
     }
 
-    function getUserPictureFn(userId) {
-
+    function uploadUserPictureFn(formData, userId) {
+      return $http.put('/api/users/' + userId + '/uploadPicture', formData, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      }).then(function (response) {
+        $log.debug('succes uploading picture from editservice');
+      }, function (response) {
+        $log.debug("error uploading picture");
+        return Promise.reject();
+      });
     }
+
+    function checkIfPictureExistsFn(userId) {
+      return $http
+        .get('/api/users/' + userId + '/checkIfPictureExists')
+        .then(function (response) {
+          $log.debug("picture exists for user")
+        }, function (response) {
+          $log.debug("picture doesn't exist");
+          return Promise.reject();
+        });
+    }
+
+
   }
 })(angular);

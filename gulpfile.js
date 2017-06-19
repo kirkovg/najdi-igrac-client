@@ -26,7 +26,11 @@ var JS_APP = [
   'app/edit-profile/edit-profile.remote.factory.js',
   'app/event/event.controller.js',
   'app/event/event.remote.factory.js',
-  'app/event/event.state.js'
+  'app/event/event.state.js',
+  'app/directives/filemodel.js',
+  'app/notifications/notifications.controller.js',
+  'app/notifications/notifications.state.js',
+  'app/notifications/notifications.remote.factory.js'
 ];
 
 var TEMPLATES_SRC = [
@@ -35,7 +39,8 @@ var TEMPLATES_SRC = [
   'app/user-profile/user-profile.view.html',
   'app/register/register/register.view.html',
   'app/edit-profile/edit-profile.view.html',
-  'app/event/event.view.html'
+  'app/event/event.view.html',
+  'app/notifications/notifications.view.html'
 ];
 
 var CSS_APP = [
@@ -72,7 +77,8 @@ var JS_LIB = [
   'bower_components/angular-resource/angular-resource.js',
   'bower_components/angular-cookies/angular-cookies.js',
   'bower_components/d3/d3.js',
-  'bower_components/c3/c3.js'
+  'bower_components/c3/c3.js',
+  'bower_components/ng-file-upload/ng-file-upload.js'
 ];
 
 

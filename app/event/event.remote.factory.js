@@ -21,7 +21,11 @@
       loadEventsBySport:loadEventsBySportFn,
       getEventsCount:getEventsCountFn,
       getEventsCountBySport:getEventsCountBySportFn,
-      createAnEvent:createAnEventFn
+      getMyEventsCount:getMyEventsCountFn,
+      createAnEvent:createAnEventFn,
+      cancelRequest:cancelRequestFn,
+      loadMyEvents:loadMyEventsFn,
+      deleteEvent:deleteEventFn
 
     };
 
@@ -29,7 +33,7 @@
 
     function searchEventsFn(queryString) {
       $log.debug(queryString);
-      return $resource("/api/search?query=" + queryString).query().$promise;
+      return $http.get("/api/search?query=" + queryString);
     }
 
     function loadUpcomingEventsFn(pageNr){
@@ -45,20 +49,40 @@
     function getEventsCountFn(){
       return $http.get("/api/events/upcoming/count");
     }
+    function getMyEventsCountFn() {
+      return $http.get("/api/events/myEvents/count");
+    }
     function getEventsCountBySportFn(sport){
       return $http.get("/api/events/upcoming/category/count?sport=" + sport);
     }
-    function createAnEventFn(event){
-      return $http.post("api/events",event);
+    function createAnEventFn(event,sendInvitesToFollowers){
+      $log.info(event);
+      return $http.post("api/events?sendInvites=" + sendInvitesToFollowers,event);
     }
     function joinEventFn(eventId) {
-      $http.post(
+        return $http.post(
         "http://localhost:8080/api/events/participate/" + eventId
       ).then(function (response) {
-        $log.info("You joined the event!!");
+        $log.info("You sent participating request for the event!!");
       }, function (response) {
-        $log.info("You cant join the event!")
+        $log.info("You cant join the event!");
+          return undefined;
       });
+    }
+    function cancelRequestFn(eventId) {
+        return $http.delete("api/events/participate/" + eventId).then(function (response) {
+          $log.info("You canceled your request");
+        },function (response) {
+          $log.info("Canceling failed!");
+        })
+    }
+    function deleteEventFn(eventId) {
+        return $http.delete("api/events/" + eventId).then(function (response) {
+          $log.info("Event deleted!")
+        });
+    }
+    function loadMyEventsFn(pageNr){
+      return $http.get("api/events/myEvents?pageNr=" + pageNr)
     }
 
   }

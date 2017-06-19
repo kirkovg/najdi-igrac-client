@@ -1,12 +1,19 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="well userInfo">
-			<img src="img/img.jpg" class="userPic">
+		<div class="well userInfo" ng-show="logCtrl.isLoggedIn()" ng-controller="LoginController as logCtrl">
+			<img data-ng-src="{{vm.pictureSrc}}"
+           height="200" width="250" ng-show="!vm.isAdmin && !vm.isAnon" class="img-responsive img-rounded">
 		</div>
-		<div class="well eventsList" ng-controller="HomeController as homeCtrl">
+		<div class="well eventsList" ng-show="!vm.myEventsClicked">
 			<h3>Upcoming Events <small> <span class="glyphicon glyphicon-time"></span> {{vm.dateNow}}	</small></h3>
 			<hr>
+      <div class="form-group form-inline">
+        <label>Search Events:</label>
+        <input class="form-control" type="text" name="search" placeholder="Search"  ng-model="vm.queryString">
+        <button class="btn btn-sm btn-primary" ng-click="vm.searchEvents()"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
+      <hr>
 			<ul class="nav nav-pills">
 				<li role="presentation" class="active"><a href="#" ng-click="vm.loadUpcomingEvents()">All</a></li>
 				<li role="presentation"><a href="#" ng-click="vm.findEventsBySport('FOOTBALL')">Football</a></li>
@@ -30,7 +37,7 @@
                     </div>
                     <div class="col-xs-10" style="padding-left: 0px;">
                       <br>
-                      <h4 class="media-heading">{{event.sport}}| {{event.name}}
+                      <h4 class="media-heading"><span class="text-danger">{{event.sport}}</span>  {{event.name}}
                         <small>at {{event.location.name}}, {{event.location.city}}, {{event.location.street}}-{{event.location.streetNumber}}</small>
                       </h4>
                       {{event.description}}
@@ -39,9 +46,10 @@
                   </div>
 
                   <br>
-                  <button type="button" ng-show="!vm.isRequestSent(event.id)" ng-click="vm.joinEvent(event.id)" class="btn btn-success pull-right">Join Event</button>
-                  <button type="button" ng-show="vm.isRequestSent(event.id)" class="btn btn-default pull-right" disabled>Request Already Sent</button>
-                  <button style="margin-left: 30px;" type="button" class="btn btn-info">Details</button>
+                  <button type="button" ng-show="vm.isMyEvent(event)" class="btn btn-default pull-right" disabled>This is your event</button>
+                  <button type="button" ng-show="!vm.isRequestSent(event.id) && !vm.isMyEvent(event)" ng-click="vm.joinEvent(event.id)" class="btn btn-success pull-right">Join Event</button>
+                  <button type="button" ng-show="vm.isRequestSent(event.id) && !vm.isMyEvent(event)" ng-click="vm.cancelRequest(event.id)" class="btn btn-danger pull-right">Cancel participating request</button>
+                  <button style="margin-left: 30px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#event-details" ng-click="vm.getEventDetails(event)">Details</button>
                 </div>
 				<hr>
             </div>
@@ -51,13 +59,51 @@
       </ul>
       </div>
 		</div>
-		<div class="well sideMenu">
+    <div class="well eventsList" ng-show="vm.myEventsClicked">
+      <h3>My Events</h3>
+      <hr>
+
+      <hr class="crta">
+      <div class="media event" ng-repeat="event in vm.upcomingEvents">
+
+        <div class="media-body">
+          <div class="row">
+            <div class="col-xs-2 text-center" style="padding-right:5px;">
+              <br>
+              <h4>{{event.dateTime.year}}</h4>
+              <h2>{{event.dateTime.day}} <small style="color: orangered">{{event.dateTime.month}}</small></h2>
+              <h3 class="text-center" style=""></h3>
+              <h3>{{event.dateTime.time}}</h3>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0px;">
+              <br>
+              <h4 class="media-heading"><span class="text-danger">{{event.sport}}</span>  {{event.name}}
+                <small>at {{event.location.name}}, {{event.location.city}}, {{event.location.street}}-{{event.location.streetNumber}}</small>
+              </h4>
+              {{event.description}}
+              <br>
+            </div>
+          </div>
+          <br>
+          <button type="button"   data-toggle="modal"
+                  data-target="#delete-event-modal" ng-click="vm.makeItDeleteing(event)" class="btn btn-danger pull-right">Delete event</button>
+          <button style="margin-left: 30px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#event-details" ng-click="vm.getEventDetails(event)">Details</button>
+        </div>
+        <hr>
+      </div>
+      <div class="text-center">
+        <ul class="pagination" ng-show="!isSinglePage()">
+          <li ng-repeat="i in vm.pageNr"><a href="#" ng-click="vm.getNthPage( $index )">{{$index+1}}</a></li>
+        </ul>
+      </div>
+    </div>
+		<div class="well sideMenu"   ng-controller="LoginController as loginCtrl" ng-show="loginCtrl.isLoggedIn()">
 			<ul class="lista">
-				<li class="menuItem"><a  data-toggle="modal"
+        <li class="menuItem"><a href="#/events" ng-click="vm.eventsOverview()"><span class="glyphicon glyphicon-list"></span> Events overview</a><hr></li>
+				<li class="menuItem"><a href="#/events"  data-toggle="modal"
                                 data-target="#event-modal"><span class="glyphicon glyphicon-plus"></span> Add Event</a><hr></li>
-				<li class="menuItem"><a href="#"><span class="glyphicon glyphicon-flag"></span> My Creations</a><hr></li>
-				<li class="menuItem"><a href="#"><span class="glyphicon glyphicon-calendar"></span> History</a><hr></li>
-				<li class="menuItem"><a href="#"><span class="glyphicon glyphicon-wrench"></span> Settings</a></li>
+
+				<li class="menuItem"><a href="#/events" ng-click="vm.loadMyEvents()"><span class="glyphicon glyphicon-wrench"></span> My events</a></li>
 			</ul>
 		</div>
 	</div>
@@ -71,21 +117,22 @@
         <h2 class="modal-title">Create an event
         </h2>
       </div>
+      <form name="form">
       <div class="modal-body">
-
         <div class="form-group row">
           <div class="col-xs-6">
             <label>Event Name:</label>
-            <input type="text" class="form-control" ng-model="vm.event.name">
+            <input type="text" class="form-control" ng-model="vm.event.name" required>
           </div>
           <div class="col-xs-6">
             <label>Event Sport:</label>
             <!--<input type="text" class="form-control" ng-model="vm.event.sport">-->
 
-              <select class="form-control" ng-model="vm.event.sport">
-                <option selected="selected" value="FOOTBALL">Football</option>
+              <select class="form-control" ng-model="vm.event.sport" required>
+                <option value="FOOTBALL" selected="selected">Football</option>
                 <option value="BASKETBALL">Basketball</option>
                 <option value="VOLLEYBALL">Volleyball</option>
+                <option value="TENNIS">Tennis</option>
               </select>
 
           </div>
@@ -93,16 +140,16 @@
         <div class="form-group row">
           <div class="col-xs-6">
             <label>Event Date:</label>
-            <input type="date" class="form-control" ng-model="vm.dateTime.date">
+            <input type="date" class="form-control" ng-model="vm.dateTime.date"  min="{{vm.todayDate}}" required>
           </div>
           <div class="col-xs-6">
             <label>Event Time:</label>
-            <input type="time" class="form-control" ng-model="vm.dateTime.time">
+            <input type="time" class="form-control" ng-model="vm.dateTime.time" required>
           </div>
         </div>
         <div class="form-group">
             <label>Location name:</label>
-            <input type="text" class="form-control" ng-model="vm.event.location.name">
+            <input type="text" class="form-control" ng-model="vm.event.location.name" required>
         </div>
         <div class="form-group row">
           <div class="col-xs-4">
@@ -122,12 +169,89 @@
           <label>Decription:</label>
           <textarea class="form-control" ng-model="vm.event.description"></textarea>
         </div>
+        <div class="form-group">
+          <label>Invite all followers:</label>
+          <input type="checkbox" ng-model="vm.sendInvitesToFollowers">
+        </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" ng-click="vm.createAnEvent()" data-dismiss="modal">Create Event</button>
+        <button type="button" class="btn btn-success" ng-click="vm.createAnEvent()" ng-disabled="form.$invalid" data-dismiss="modal">Create Event</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="delete-event-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-target="#/events"><span
+          aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Create an event
+        </h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete "{{vm.deleteingEvent.name}}" event ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" ng-click="vm.deleteEvent()" data-dismiss="modal">Delete the event</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="event-details">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-target="#/event-details"><span
+          aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">{{vm.eventDetails.name}} <br>
+          <small><span class="fa fa-clock-o"></span>
+            {{vm.eventDetails.dateTime.day}}
+            {{vm.eventDetails.dateTime.month}}
+            {{vm.eventDetails.dateTime.year}}
+            {{vm.eventDetails.dateTime.time}}
+          </small>
+        </h2>
+      </div>
+      <div class="modal-body">
 
+        <h4>{{vm.eventDetails.sport}}
+          <span class="fa fa-futbol-o" ng-show="vm.eventDetails.sport == 'FOOTBALL'"></span>
+          <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'BASKETBALL'"></span>
+          <span class="fa fa-dribbble" ng-show="vm.eventDetails.sport == 'VOLLEYBALL'"></span>
+        </h4>
+        <p>
+          <label>Location: </label>
+          {{vm.eventDetails.location.city}}
+          {{vm.eventDetails.location.name}}
+          {{vm.eventDetails.location.street}}
+          {{vm.eventDetails.location.streetNumber}}
+          <br/>
+          <label>Description: </label>&nbsp;<span>{{vm.eventDetails.description}}</span>
+        </p>
+
+
+        <div class="well">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user fa-fw"></i>Participants</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <a class="list-group-item"
+                 ng-repeat="x in vm.eventDetails.participants">
+                <i class="fa fa-fw fa-user-secret"></i> {{x.userName}}
+              </a>
+              <span ng-show="vm.eventDetails.participants.length==0">No users participating!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

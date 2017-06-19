@@ -1,0 +1,70 @@
+<br/>
+<div class="container">
+  <div class="col-sm-4 col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>My participating requests</h3>
+    </div>
+    <div class="panel-body">
+      <div class="list-group">
+        <a class="list-group-item"
+           ng-repeat="x in vm.participatingRequests track by $index">
+          {{x.event.name}}, @{{x.event.location.name}}
+          <i class="fa fa-fw fa-calendar"></i>
+          <span class="label label-success pull-right" ng-show="x.seen && x.isAccepted">accepted</span>
+          <span class="label label-warning pull-right" ng-show="!x.seen && !x.isAccepted">pending</span>
+          <span class="label label-danger pull-right" ng-show="x.seen && !x.isAccepted">rejected</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>My invite requests</h3>
+    </div>
+    <div class="panel-body">
+      <div class="list-group">
+        <a class="list-group-item" style="height: 80px;"
+           ng-repeat="x in vm.inviteRequests track by $index" data-toggle="tooltip" data-placement="top"
+                title="{{x.message}}">
+          {{x.event.name}}, @{{x.event.location.name}}
+          <br/>
+          from: {{x.from.userName}}
+          <i class="fa fa-fw fa-calendar"></i>
+          <div class="pull-right" style="margin-top: -5px;">
+            <button class="btn btn-sm btn-danger" ng-click="vm.rejectInvite(x.id, x.to.id)">Reject</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.acceptInvite(x.id, x.to.id)">Accept</button>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>Requests for my events</h3>
+    </div>
+    <div class="panel-body">
+      <div class="list-group">
+        <li class="list-group-item" style="height: 80px;"
+           ng-repeat="x in vm.requestsForMyEvents track by $index" data-toggle="tooltip" data-placement="top"
+           title="{{x.message}}">
+          {{x.event.name}}, @{{x.event.location.name}}
+          <br/>
+          from: {{x.from.userName}}
+          <i class="fa fa-fw fa-calendar"></i>
+          <div class="pull-right" style="margin-top: -5px;">
+            <button class="btn btn-sm btn-danger" ng-click="vm.rejectParticipatingRequest(x.id)">Reject</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.acceptParticipatingRequest(x.id)">Accept</button>
+          </div>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
